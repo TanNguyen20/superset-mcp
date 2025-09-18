@@ -1839,7 +1839,7 @@ async def superset_advanced_data_type_list(ctx: Context) -> Dict[str, Any]:
 logger.info("Starting Superset MCP server (FastMCP v2, HTTP mode)...")
 
 # Build the FastMCP ASGI app (HTTP transport) at /mcp
-mcp_app = mcp.http_app(path="/mcp")
+mcp_app = mcp.http_app()
 
 # Wire MCP lifespan into FastAPI so sessions initialize correctly
 app = FastAPI(title="Superset MCP Server", lifespan=mcp_app.lifespan)
