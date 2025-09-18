@@ -1845,7 +1845,7 @@ mcp_app = mcp.http_app()
 app = FastAPI(title="Superset MCP Server", lifespan=mcp_app.lifespan)
 
 # Mount the MCP app
-app.mount("/mcp", mcp_app)
+app.mount("/mcp/", mcp_app)
 
 # Optional health endpoint
 @app.get("/health")
