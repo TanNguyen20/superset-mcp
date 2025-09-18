@@ -1835,22 +1835,22 @@ async def superset_advanced_data_type_list(ctx: Context) -> Dict[str, Any]:
     return await make_api_request(ctx, "get", "/api/v1/advanced_data_type/types")
 
 
-if __name__ == "__main__":
-    logger.info("Starting Superset MCP server (FastMCP v2, HTTP mode)...")
 
-    # Build the FastMCP ASGI app (HTTP transport) at /mcp
-    mcp_app = mcp.http_app(path="/mcp")
+logger.info("Starting Superset MCP server (FastMCP v2, HTTP mode)...")
 
-    # Wire MCP lifespan into FastAPI so sessions initialize correctly
-    app = FastAPI(title="Superset MCP Server", lifespan=mcp_app.lifespan)
+# Build the FastMCP ASGI app (HTTP transport) at /mcp
+mcp_app = mcp.http_app(path="/mcp")
 
-    # Mount the MCP app
-    app.mount("/mcp", mcp_app)
+# Wire MCP lifespan into FastAPI so sessions initialize correctly
+app = FastAPI(title="Superset MCP Server", lifespan=mcp_app.lifespan)
 
-    # Optional health endpoint
-    @app.get("/health")
-    async def health():
-        return {"status": "ok", "service": "superset-mcp"}
+# Mount the MCP app
+app.mount("/mcp", mcp_app)
 
-    # Serve with Uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
+# Optional health endpoint
+@app.get("/health")
+async def health():
+    return {"status": "ok", "service": "superset-mcp"}
+
+# Serve with Uvicorn
+uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
