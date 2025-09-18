@@ -1851,6 +1851,3 @@ app.mount("/mcp", mcp_app)
 @app.get("/health")
 async def health():
     return {"status": "ok", "service": "superset-mcp"}
-
-# Serve with Uvicorn
-uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
