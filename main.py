@@ -60,7 +60,7 @@ load_dotenv()
 SUPERSET_BASE_URL = os.getenv("SUPERSET_BASE_URL", "http://localhost:8088")
 SUPERSET_USERNAME = os.getenv("SUPERSET_USERNAME")
 SUPERSET_PASSWORD = os.getenv("SUPERSET_PASSWORD")
-ACCESS_TOKEN_STORE_PATH = os.path.join(os.path.dirname(__file__), ".superset_token")
+ACCESS_TOKEN_STORE_PATH = os.path.join(os.getenv("TMPDIR", "/tmp"), ".superset_token")
 
 
 @dataclass
