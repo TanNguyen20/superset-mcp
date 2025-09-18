@@ -410,8 +410,8 @@ async def superset_auth_refresh_token(ctx: Context) -> Dict[str, Any]:
 @handle_api_errors
 async def superset_auth_authenticate_user(
     ctx: Context,
-    username: Optional[str] = None,
-    password: Optional[str] = None,
+    username: Optional[str] = SUPERSET_USERNAME,
+    password: Optional[str] = SUPERSET_PASSWORD,
     refresh: bool = True,
 ) -> Dict[str, Any]:
     """
@@ -447,10 +447,6 @@ async def superset_auth_authenticate_user(
             if not refresh_result.get("error"):
                 return refresh_result
             # If refresh fails, fall back to re-authentication
-
-    # Use provided credentials or fall back to env vars
-    username = username or SUPERSET_USERNAME
-    password = password or SUPERSET_PASSWORD
 
     if not username or not password:
         return {
